@@ -11,19 +11,34 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.portabletv.R
+import com.example.portabletv.viewmodel.TrendingTVShowViewModel
+import com.example.portabletv.viewmodel.state.TrendingTVShowState
 
 @Composable
 fun HomeScreen() {
     Column {
         TopAppBar()
+        FetchTrendingTVShowData()
+    }
+}
+
+@Composable
+fun FetchTrendingTVShowData(trendingTVShowViewModel: TrendingTVShowViewModel = viewModel()) {
+    Column {
+        when(val state = trendingTVShowViewModel.trendingTVShowState.collectAsState().value) {
+            is TrendingTVShowState.Empty -> Text(text = "No Data Available")
+            is TrendingTVShowState.Loading -> Text(text = "Loading...")
+            is TrendingTVShowState.Success -> Text(text = "Success!")
+            is TrendingTVShowState.Error -> Text(text = state.message)
+        }
     }
 }
 
