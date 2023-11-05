@@ -1,4 +1,4 @@
-package com.example.portabletv.data.remote.models
+package com.example.portabletv.data.remote.models.trending_tv_show_model
 
 data class trendingTVShowsData(
     val adult: Boolean,
