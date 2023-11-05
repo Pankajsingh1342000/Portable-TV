@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.portabletv.R
 import com.example.portabletv.viewmodel.TrendingTVShowViewModel
-import com.example.portabletv.viewmodel.state.TrendingTVShowState
+import com.example.portabletv.viewmodel.state.PortableTVDataState
 
 @Composable
 fun HomeScreen() {
@@ -33,11 +33,11 @@ fun HomeScreen() {
 @Composable
 fun FetchTrendingTVShowData(trendingTVShowViewModel: TrendingTVShowViewModel = viewModel()) {
     Column {
-        when(val state = trendingTVShowViewModel.trendingTVShowState.collectAsState().value) {
-            is TrendingTVShowState.Empty -> Text(text = "No Data Available")
-            is TrendingTVShowState.Loading -> Text(text = "Loading...")
-            is TrendingTVShowState.Success -> Text(text = "Success!")
-            is TrendingTVShowState.Error -> Text(text = state.message)
+        when(val state = trendingTVShowViewModel.portableTVDataState.collectAsState().value) {
+            is PortableTVDataState.Empty -> Text(text = "No Data Available")
+            is PortableTVDataState.Loading -> Text(text = "Loading...")
+            is PortableTVDataState.Success -> Text(text = "Success!")
+            is PortableTVDataState.Error -> Text(text = state.message)
         }
     }
 }

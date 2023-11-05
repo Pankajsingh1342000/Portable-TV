@@ -1,7 +1,7 @@
 package com.example.portabletv.di
 
 import com.example.portabletv.utils.BASE_URL
-import com.example.portabletv.data.remote.TrendingTVShowsAPIService
+import com.example.portabletv.data.remote.TMDBAPIService
 import com.example.portabletv.utils.RequestInterceptor
 import dagger.Module
 import dagger.Provides
@@ -37,7 +37,7 @@ object NetworkModule {
     }
 
     @Provides
-    fun trendingTVShowsAPIService (retrofit: Retrofit): TrendingTVShowsAPIService {
-        return retrofit.create(TrendingTVShowsAPIService::class.java)
+    fun trendingTVShowsAPIService (retrofit: Retrofit): TMDBAPIService {
+        return retrofit.create(TMDBAPIService::class.java)
     }
 }
