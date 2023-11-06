@@ -3,9 +3,15 @@ package com.example.portabletv.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Card
@@ -20,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.portabletv.R
@@ -50,7 +57,17 @@ fun FetchTrendingTVShowData(trendingTVShowViewModel: TrendingTVShowViewModel = v
 @Composable
 fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>) {
     Column {
+        Text(
+            modifier = Modifier
+                .padding(top = 8.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            text = "Trending TV Show"
+        )
         LazyRow (
+            modifier = Modifier
+                .padding(8.dp)
+                .wrapContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             content = {
                 items(trendingTVShowsData) {
                     TrendingTVShowPosterCard(posterPath = it.poster_path)
@@ -62,8 +79,12 @@ fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>) {
 
 @Composable
 fun TrendingTVShowPosterCard(posterPath : String) {
-    Card {
-        AsyncImage(model = "https://image.tmdb.org/t/p/original/$posterPath", contentDescription = null)
+    Card (
+        shape = RoundedCornerShape(24.dp),
+        modifier = Modifier
+            .height(237.dp)
+    ){
+        AsyncImage(model = "https://image.tmdb.org/t/p/w500/$posterPath", contentDescription = null)
     }
 }
 
