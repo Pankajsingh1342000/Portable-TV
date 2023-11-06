@@ -3,18 +3,14 @@ package com.example.portabletv.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -28,9 +24,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
 import com.example.portabletv.R
 import com.example.portabletv.data.remote.models.trendingTVShowsData
+import com.example.portabletv.reusable_composables.PosterCard
 import com.example.portabletv.viewmodel.TrendingTVShowViewModel
 import com.example.portabletv.viewmodel.state.PortableTVDataState
 
@@ -63,30 +59,36 @@ fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>) {
             style = MaterialTheme.typography.bodyMedium,
             text = "Trending TV Show"
         )
-        LazyRow (
-            modifier = Modifier
-                .padding(8.dp)
-                .wrapContentSize(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp),
-            content = {
-                items(trendingTVShowsData) {
-                    TrendingTVShowPosterCard(posterPath = it.poster_path)
-                }
+        if(trendingTVShowsData.isEmpty()){
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "NO DATA"
+                )
+                Text(
+                    text = "NO DATA AVAILABLE",
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
-        )
+        }
+        else {
+            LazyRow (
+                modifier = Modifier
+                    .padding(8.dp)
+                    .wrapContentSize(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                content = {
+                    items(trendingTVShowsData) {
+                        PosterCard(posterPath = it.poster_path)
+                    }
+                }
+            )
+        }
     }
 }
 
-@Composable
-fun TrendingTVShowPosterCard(posterPath : String) {
-    Card (
-        shape = RoundedCornerShape(24.dp),
-        modifier = Modifier
-            .height(237.dp)
-    ){
-        AsyncImage(model = "https://image.tmdb.org/t/p/w500/$posterPath", contentDescription = null)
-    }
-}
 
 @Composable
 fun TopAppBar() {
