@@ -37,7 +37,8 @@ object NetworkModule {
     }
 
     @Provides
-    fun trendingTVShowsAPIService (retrofit: Retrofit): TMDBAPIService {
+    fun portableTVAPIService (retrofit: Retrofit): TMDBAPIService {
         return retrofit.create(TMDBAPIService::class.java)
     }
+
 }

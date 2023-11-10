@@ -25,8 +25,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.portabletv.R
+import com.example.portabletv.data.remote.models.trending_movies_model.trendingMoviesData
 import com.example.portabletv.data.remote.models.trending_tv_show_model.trendingTVShowsData
 import com.example.portabletv.reusable_composables.PosterCard
+import com.example.portabletv.viewmodel.TrendingMoviesViewModel
 import com.example.portabletv.viewmodel.TrendingTVShowViewModel
 import com.example.portabletv.viewmodel.state.PortableTVDataState
 
@@ -35,8 +37,22 @@ fun HomeScreen() {
     Column {
         TopAppBar()
         FetchTrendingTVShowData()
+        FetchTrendingMoviesData()
     }
 }
+
+@Composable
+fun FetchTrendingMoviesData(trendingMoviesViewModel: TrendingMoviesViewModel = viewModel()) {
+    Column {
+        when(val state = trendingMoviesViewModel.portableTVDataState.collectAsState().value) {
+            is PortableTVDataState.Empty -> Text(text = "No Data Available")
+            is PortableTVDataState.Loading -> Text(text = "Loading...")
+            is PortableTVDataState.Success -> TrendingMoviesPosterList(trendingMoviesData = state.data as List<trendingMoviesData>)
+            is PortableTVDataState.Error -> Text(text = state.message)
+        }
+    }
+}
+
 
 @Composable
 fun FetchTrendingTVShowData(trendingTVShowViewModel: TrendingTVShowViewModel = viewModel()) {
@@ -46,6 +62,45 @@ fun FetchTrendingTVShowData(trendingTVShowViewModel: TrendingTVShowViewModel = v
             is PortableTVDataState.Loading -> Text(text = "Loading...")
             is PortableTVDataState.Success -> TrendingTVShowPosterList(trendingTVShowsData = state.data as List<trendingTVShowsData>)
             is PortableTVDataState.Error -> Text(text = state.message)
+        }
+    }
+}
+
+@Composable
+fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>) {
+    Column {
+        Text(
+            modifier = Modifier
+                .padding(top = 8.dp),
+            style = MaterialTheme.typography.bodyMedium,
+            text = "Trending Movies"
+        )
+        if(trendingMoviesData.isEmpty()){
+            Column (
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = "NO DATA"
+                )
+                Text(
+                    text = "NO DATA AVAILABLE",
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            }
+        }
+        else {
+            LazyRow (
+                modifier = Modifier
+                    .padding(8.dp)
+                    .wrapContentSize(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                content = {
+                    items(trendingMoviesData) {
+                        PosterCard(posterPath = it.poster_path)
+                    }
+                }
+            )
         }
     }
 }
