@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.portabletv.R
-import com.example.portabletv.data.remote.models.trendingTVShowsData
+import com.example.portabletv.data.remote.models.trending_tv_show_model.trendingTVShowsData
 import com.example.portabletv.reusable_composables.PosterCard
 import com.example.portabletv.viewmodel.TrendingTVShowViewModel
 import com.example.portabletv.viewmodel.state.PortableTVDataState
