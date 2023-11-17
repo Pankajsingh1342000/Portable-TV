@@ -7,6 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.portabletv.screens.HomeScreen
 import com.example.portabletv.ui.theme.PortableTVTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,12 +20,26 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PortableTVTheme {
-                // A surface container using the 'background' color from the theme
-                Column (modifier = Modifier
-                    .padding(10.dp)
-                ) {
-                    HomeScreen()
-                }
+
+                val navController = rememberNavController()
+//                NavHost(
+//                    navController = navController,
+//                    startDestination = "home_screen"
+//                ) {
+//                    composable("home_screen") {
+//                        HomeScreen(navController = navController)
+//                    }
+//                }
+
+                HomeScreen(navController)
+
+//                Column (modifier = Modifier
+//                    .padding(10.dp)
+//                ) {
+//                    HomeScreen(navController)
+//                }
+
+
             }
         }
     }
