@@ -38,6 +38,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.portabletv.R
@@ -118,7 +119,7 @@ fun SearchBar(
 }
 
 @Composable
-fun FetchTrendingMoviesData(navController: NavController,trendingMoviesViewModel: TrendingMoviesViewModel = viewModel()) {
+fun FetchTrendingMoviesData(navController: NavController,trendingMoviesViewModel: TrendingMoviesViewModel = hiltViewModel()) {
     Column {
         when(val state = trendingMoviesViewModel.portableTVDataState.collectAsState().value) {
             is PortableTVDataState.Empty -> Text(text = "No Data Available")
@@ -131,7 +132,7 @@ fun FetchTrendingMoviesData(navController: NavController,trendingMoviesViewModel
 
 
 @Composable
-fun FetchTrendingTVShowData(navController: NavController,trendingTVShowViewModel: TrendingTVShowViewModel = viewModel()) {
+fun FetchTrendingTVShowData(navController: NavController,trendingTVShowViewModel: TrendingTVShowViewModel = hiltViewModel()) {
     Column {
         when(val state = trendingTVShowViewModel.portableTVDataState.collectAsState().value) {
             is PortableTVDataState.Empty -> Text(text = "No Data Available")

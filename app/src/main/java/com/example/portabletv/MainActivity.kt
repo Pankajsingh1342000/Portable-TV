@@ -22,16 +22,16 @@ class MainActivity : ComponentActivity() {
             PortableTVTheme {
 
                 val navController = rememberNavController()
-//                NavHost(
-//                    navController = navController,
-//                    startDestination = "home_screen"
-//                ) {
-//                    composable("home_screen") {
-//                        HomeScreen(navController = navController)
-//                    }
-//                }
+                NavHost(
+                    navController = navController,
+                    startDestination = "home_screen"
+                ) {
+                    composable("home_screen") {
+                        HomeScreen(navController = navController)
+                    }
+                }
 
-                HomeScreen(navController)
+//                HomeScreen(navController)
 
 //                Column (modifier = Modifier
 //                    .padding(10.dp)
