@@ -1,5 +1,6 @@
 package com.example.portabletv.screens
 
+import android.text.style.TabStopSpan.Standard
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -39,15 +40,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.portabletv.R
 import com.example.portabletv.data.remote.models.trending_movies_model.trendingMoviesData
 import com.example.portabletv.data.remote.models.trending_tv_show_model.trendingTVShowsData
-import com.example.portabletv.reusable_composables.PosterCard
+import com.example.portabletv.reusable_composables.MoviePosterCard
+import com.example.portabletv.reusable_composables.TVShowPosterCard
 import com.example.portabletv.viewmodel.TrendingMoviesViewModel
 import com.example.portabletv.viewmodel.TrendingTVShowViewModel
 import com.example.portabletv.viewmodel.state.PortableTVDataState
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
 fun HomeScreen(navController: NavController) {
@@ -124,7 +127,7 @@ fun FetchTrendingMoviesData(navController: NavController,trendingMoviesViewModel
         when(val state = trendingMoviesViewModel.portableTVDataState.collectAsState().value) {
             is PortableTVDataState.Empty -> Text(text = "No Data Available")
             is PortableTVDataState.Loading -> Text(text = "Loading...")
-            is PortableTVDataState.Success -> TrendingMoviesPosterList(trendingMoviesData = state.data as List<trendingMoviesData>)
+            is PortableTVDataState.Success -> TrendingMoviesPosterList(trendingMoviesData = state.data as List<trendingMoviesData>, navController)
             is PortableTVDataState.Error -> Text(text = state.message)
         }
     }
@@ -137,14 +140,14 @@ fun FetchTrendingTVShowData(navController: NavController,trendingTVShowViewModel
         when(val state = trendingTVShowViewModel.portableTVDataState.collectAsState().value) {
             is PortableTVDataState.Empty -> Text(text = "No Data Available")
             is PortableTVDataState.Loading -> Text(text = "Loading...")
-            is PortableTVDataState.Success -> TrendingTVShowPosterList(trendingTVShowsData = state.data as List<trendingTVShowsData>)
+            is PortableTVDataState.Success -> TrendingTVShowPosterList(trendingTVShowsData = state.data as List<trendingTVShowsData>, navController)
             is PortableTVDataState.Error -> Text(text = state.message)
         }
     }
 }
 
 @Composable
-fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>) {
+fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>, navController: NavController) {
 
     Column {
         Text(
@@ -175,7 +178,24 @@ fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 content = {
                     items(trendingMoviesData) {
-                        PosterCard(posterPath = it.poster_path, overview = it.overview)
+                        MoviePosterCard(
+                            navController = navController,
+                            adult = it.adult,
+                            backdrop_path = it.backdrop_path,
+                            id = it.id,
+                            title = it.title,
+                            original_language = it.original_language,
+                            original_title = it.original_title,
+                            overview = it.overview,
+                            poster_path = it.poster_path,
+                            media_type = it.media_type,
+                            genre_ids = it.genre_ids,
+                            popularity = it.popularity,
+                            release_date = it.release_date,
+                            video = it.video,
+                            vote_average = it.vote_average,
+                            vote_count = it.vote_count
+                        )
                     }
                 }
             )
@@ -184,7 +204,7 @@ fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>) {
 }
 
 @Composable
-fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>) {
+fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>, navController: NavController) {
     Column {
         Text(
             modifier = Modifier
@@ -214,7 +234,25 @@ fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>) {
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 content = {
                     items(trendingTVShowsData) {
-                        PosterCard(posterPath = it.poster_path, overview = it.overview)
+                        TVShowPosterCard(
+                            poster = it.poster_path,
+                            navController = navController,
+                            adult = it.adult,
+////                            backdrop_path = it.backdrop_path,
+//                            id = it.id,
+                            name = it.name,
+                            original_language = it.original_language,
+                            original_name = it.original_name,
+                            overview = it.overview,
+                            poster_path = URLEncoder.encode(it.poster_path,StandardCharsets.UTF_8.toString()),
+////                            media_type = it.media_type,
+//                            genre_ids = it.genre_ids,
+                            popularity = it.popularity.toString(),
+                            first_air_date = it.first_air_date,
+                            vote_average = it.vote_average.toString(),
+                            vote_count = it.vote_count.toString(),
+////                            origin_country = it.origin_country
+                        )
 
                     }
                 }
