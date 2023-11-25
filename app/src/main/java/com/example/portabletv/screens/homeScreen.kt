@@ -181,20 +181,15 @@ fun TrendingMoviesPosterList(trendingMoviesData: List<trendingMoviesData>, navCo
                         MoviePosterCard(
                             navController = navController,
                             adult = it.adult,
-                            backdrop_path = it.backdrop_path,
-                            id = it.id,
                             title = it.title,
                             original_language = it.original_language,
                             original_title = it.original_title,
                             overview = it.overview,
-                            poster_path = it.poster_path,
-                            media_type = it.media_type,
-                            genre_ids = it.genre_ids,
-                            popularity = it.popularity,
+                            poster_path = URLEncoder.encode(it.poster_path,StandardCharsets.UTF_8.toString()),
+                            popularity = it.popularity.toString(),
                             release_date = it.release_date,
-                            video = it.video,
-                            vote_average = it.vote_average,
-                            vote_count = it.vote_count
+                            vote_average = it.vote_average.toString(),
+                            vote_count = it.vote_count.toString()
                         )
                     }
                 }

@@ -34,7 +34,6 @@ fun TVShowPosterCard(
             .clickable {
                 navController.navigate(
                     "tv_show_detail_screen/${adult}/${name}/${original_language}/${original_name}/${overview}/${poster_path}/${popularity}/${first_air_date}/${vote_average}/${vote_count}"
-//                    "tv_show_detail_screen/${adult}/${backdrop_path}/${id}/${name}/${original_language}/${original_name}/${overview}/${poster_path}/${media_type}/${genre_ids}/${popularity}/${first_air_date}/${vote_average}/${vote_count}/${origin_country}"
                 )
             },
     ) {
@@ -46,20 +45,15 @@ fun TVShowPosterCard(
 fun MoviePosterCard(
     navController: NavController,
     adult: Boolean,
-    backdrop_path: String,
-    id: Int,
     title: String,
     original_language: String,
     original_title: String,
     overview: String,
     poster_path: String,
-    media_type: String,
-    genre_ids: List<Int>,
-    popularity: Double,
+    popularity: String,
     release_date: String,
-    video: Boolean,
-    vote_average: Double,
-    vote_count: Int,
+    vote_average: String,
+    vote_count: String,
 ) {
 
     Card (
@@ -68,7 +62,7 @@ fun MoviePosterCard(
             .height(237.dp)
             .clickable {
                 navController.navigate(
-                    "movie_detail_screen/${overview}"
+                    "movie_detail_screen/${adult}/${title}/${original_language}/${original_title}/${overview}/${poster_path}/${popularity}/${release_date}/${vote_average}/${vote_count}"
                 )
             },
     ) {
