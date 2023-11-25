@@ -31,17 +31,10 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(
                         "tv_show_detail_screen/{adult}/{name}/{original_language}/{original_name}/{overview}/{poster_path}/{popularity}/{first_air_date}/{vote_average}/{vote_count}",
-//                        "tv_show_detail_screen/{adult}/{backdrop_path}/{id}/{name}/{original_language}/{original_name}/{overview}/{poster_path}/{media_type}/{genre_ids}/{popularity}/{first_air_date}/{vote_average}/{vote_count}/{origin_country}",
                         arguments = listOf(
                             navArgument("adult") {
                                 type = NavType.BoolType
                             },
-//                            navArgument("backdrop_path") {
-//                                type = NavType.StringType
-//                            },
-//                            navArgument("id") {
-//                                type = NavType.IntType
-//                            },
                             navArgument("name") {
                                 type = NavType.StringType
                             },
@@ -57,12 +50,6 @@ class MainActivity : ComponentActivity() {
                             navArgument("poster_path") {
                                 type = NavType.StringType
                             },
-//                            navArgument("media_type") {
-//                                type = NavType.StringType
-//                            },
-//                            navArgument("genre_ids") {
-//                                type = NavType.IntType
-//                            },
                             navArgument("popularity") {
                                 type = NavType.StringType
                             },
@@ -75,20 +62,11 @@ class MainActivity : ComponentActivity() {
                             navArgument("vote_count") {
                                 type = NavType.StringType
                             },
-//                            navArgument("origin_country") {
-//                                type = NavType.StringArrayType
-//                            },
                         )
                     ) {
                         val adult = remember {
                             it.arguments?.getBoolean("adult")
                         }
-//                        val backdrop_path = remember {
-//                            it.arguments?.getString("backdrop_path")
-//                        }
-//                        val id = remember {
-//                            it.arguments?.getInt("id")
-//                        }
                         val name = remember {
                             it.arguments?.getString("name")
                         }
@@ -104,12 +82,6 @@ class MainActivity : ComponentActivity() {
                         val poster_path = remember {
                             it.arguments?.getString("poster_path")
                         }
-//                        val media_type = remember {
-//                            it.arguments?.getString("media_type")
-//                        }
-//                        val genre_ids = remember {
-//                            it.arguments?.getIntegerArrayList("genre_ids")
-//                        }
                         val popularity = remember {
                             it.arguments?.getString("popularity")
                         }
@@ -122,40 +94,23 @@ class MainActivity : ComponentActivity() {
                         val vote_count = remember {
                             it.arguments?.getString("vote_count")
                         }
-//                        val origin_country = remember {
-//                            it.arguments?.getStringArrayList("origin_country")
-//                        }
 
                         TVShowDescriptionCard(
                             navController = navController,
                             adult = adult!!,
-//                            backdrop_path = backdrop_path!!,
-//                            id = id!!,
                             name = name!!,
                             original_language = original_language!!,
                             original_name = original_name!!,
                             overview = overview!!,
                             poster_path = poster_path!!,
-//                            media_type = media_type!!,
-//                            genre_ids = genre_ids!!,
                             popularity = popularity!!,
                             first_air_date = first_air_date!!,
                             vote_average = vote_average!!,
                             vote_count = vote_count!!,
-//                            origin_country = origin_country!!
                         )
 
                     }
                 }
-
-//                HomeScreen(navController)
-
-//                Column (modifier = Modifier
-//                    .padding(10.dp)
-//                ) {
-//                    HomeScreen(navController)
-//                }
-
 
             }
         }

@@ -16,20 +16,15 @@ fun TVShowPosterCard(
     poster: String,
     navController: NavController,
     adult: Boolean,
-//    backdrop_path: String,
-//    id: Int,
     name: String,
     original_language: String,
     original_name: String,
     overview: String,
     poster_path: String,
-////    media_type: String,
-//    genre_ids: List<Int>,
     popularity: String,
     first_air_date: String,
     vote_average: String,
     vote_count: String,
-////    origin_country: List<String>
 
 ){
     Card (

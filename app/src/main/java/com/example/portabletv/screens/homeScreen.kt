@@ -238,20 +238,15 @@ fun TrendingTVShowPosterList(trendingTVShowsData: List<trendingTVShowsData>, nav
                             poster = it.poster_path,
                             navController = navController,
                             adult = it.adult,
-////                            backdrop_path = it.backdrop_path,
-//                            id = it.id,
                             name = it.name,
                             original_language = it.original_language,
                             original_name = it.original_name,
                             overview = it.overview,
                             poster_path = URLEncoder.encode(it.poster_path,StandardCharsets.UTF_8.toString()),
-////                            media_type = it.media_type,
-//                            genre_ids = it.genre_ids,
                             popularity = it.popularity.toString(),
                             first_air_date = it.first_air_date,
                             vote_average = it.vote_average.toString(),
                             vote_count = it.vote_count.toString(),
-////                            origin_country = it.origin_country
                         )
 
                     }
